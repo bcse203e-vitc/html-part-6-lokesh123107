@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head><title>Color Code Validation</title></head>
+<body>
+  <h3>Color Code with Preview</h3>
+  <input type="text" id="color" placeholder="#FFFFFF">
+  <div id="preview" style="width:100px;height:50px;border:1px solid black;"></div>
+  <div id="msg"></div>
+
+  <script>
+    document.getElementById("color").addEventListener("input", function(){
+      const regex=/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
+      if(regex.test(this.value)){
+        document.getElementById("msg").textContent="Valid ✔";
+        document.getElementById("preview").style.background=this.value;
+      }else{
+        document.getElementById("msg").textContent="Invalid ✘";
+        document.getElementById("preview").style.background="white";
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head><title>Username Validation</title><style>.error{color:red}</style></head>
+<body>
+  <h3>Username Check</h3>
+  <form id="userForm">
+    Username: <input type="text" id="username">
+    <span id="msg" class="error"></span><br><br>
+    <button type="submit">Submit</button>
+  </form>
+
+  <script>
+    document.getElementById("userForm").addEventListener("submit",function(e){
+      const regex=/^[a-zA-Z0-9_]{3,16}$/;
+      if(!regex.test(username.value)){
+        document.getElementById("msg").textContent="Invalid Username!";
+        e.preventDefault();
+      } else { document.getElementById("msg").textContent=""; }
+    });
+  </script>
+</body>
+</html>

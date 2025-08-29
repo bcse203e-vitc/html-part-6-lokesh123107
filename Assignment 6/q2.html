@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Email Validation</title>
+  <style>.error{color:red} .success{color:green}</style>
+</head>
+<body>
+  <h3>Email Validation</h3>
+  <input type="text" id="email" placeholder="Enter Email">
+  <div id="msg"></div>
+
+  <script>
+    document.getElementById("email").addEventListener("blur", function() {
+      const regex = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+      if(regex.test(this.value)) {
+        document.getElementById("msg").textContent="Valid Email ";
+        document.getElementById("msg").className="success";
+      } else {
+        document.getElementById("msg").textContent="Invalid Email ";
+        document.getElementById("msg").className="error";
+      }
+    });
+  </script>
+</body>
+</html>

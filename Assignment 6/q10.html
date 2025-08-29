@@ -1,0 +1,25 @@
+<html>
+<head><title>Form Builder</title></head>
+<body>
+  <h3>Dynamic Form Builder</h3>
+  <select id="type">
+    <option value="text">Text</option>
+    <option value="email">Email</option>
+    <option value="password">Password</option>
+  </select>
+  <button onclick="addField()">Add</button>
+
+  <form id="dynamicForm"></form>
+
+  <script>
+    function addField(){
+      let type=document.getElementById("type").value;
+      let input=document.createElement("input");
+      input.type=type;
+      input.placeholder="Enter "+type;
+      document.getElementById("dynamicForm").appendChild(input);
+      document.getElementById("dynamicForm").appendChild(document.createElement("br"));
+    }
+  </script>
+</body>
+</html>
