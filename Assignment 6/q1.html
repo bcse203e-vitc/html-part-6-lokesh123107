@@ -4,48 +4,96 @@
   <title>Registration Form</title>
   <style>
     .error { color: red; font-size: 0.9em; }
+    .success { color: green; font-size: 0.9em; }
     button:disabled { background: #ccc; }
+    input { margin-bottom: 5px; }
   </style>
 </head>
 <body>
   <h3>Registration Form</h3>
   <form id="regForm">
-    Name: <input type="text" id="name"><span id="nameError" class="error"></span><br><br>
-    Email: <input type="text" id="email"><span id="emailError" class="error"></span><br><br>
-    Password: <input type="password" id="password"><span id="passwordError" class="error"></span><br><br>
+    Name: <input type="text" id="name"><br>
+    <span id="nameError"></span><br>
+
+    Email: <input type="text" id="email"><br>
+    <span id="emailError"></span><br>
+
+    Password: <input type="password" id="password"><br>
+    <span id="passwordError"></span><br>
+
     <button type="submit" id="submitBtn" disabled>Register</button>
   </form>
+
   <script>
     const name = document.getElementById("name");
     const email = document.getElementById("email");
     const pass = document.getElementById("password");
     const btn = document.getElementById("submitBtn");
+
     function validateName() {
+      const error = document.getElementById("nameError");
       if (name.value.trim() === "") {
-        document.getElementById("nameError").textContent = " Required!";
+        error.textContent = "Name is required";
+        error.className = "error";
         return false;
-      } else { document.getElementById("nameError").textContent = ""; return true; }
+      } else {
+        error.textContent = "Valid name";
+        error.className = "success";
+        return true;
+      }
     }
+
     function validateEmail() {
+      const error = document.getElementById("emailError");
       const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!pattern.test(email.value)) {
-        document.getElementById("emailError").textContent = " Invalid email!";
+      if (email.value.trim() === "") {
+        error.textContent = "Email is required";
+        error.className = "error";
         return false;
-      } else { document.getElementById("emailError").textContent = ""; return true; }
+      } else if (!pattern.test(email.value)) {
+        error.textContent = "Invalid email format";
+        error.className = "error";
+        return false;
+      } else {
+        error.textContent = "Valid email";
+        error.className = "success";
+        return true;
+      }
     }
+
     function validatePass() {
+      const error = document.getElementById("passwordError");
       const pattern = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
-      if (!pattern.test(pass.value)) {
-        document.getElementById("passwordError").textContent = " Weak password!";
+      if (pass.value.trim() === "") {
+        error.textContent = "Password is required";
+        error.className = "error";
         return false;
-      } else { document.getElementById("passwordError").textContent = ""; return true; }
+      } else if (!pattern.test(pass.value)) {
+        error.textContent = "Must be at least 8 characters with 1 uppercase and 1 number";
+        error.className = "error";
+        return false;
+      } else {
+        error.textContent = "Strong password";
+        error.className = "success";
+        return true;
+      }
     }
+
     function checkForm() {
       btn.disabled = !(validateName() && validateEmail() && validatePass());
     }
+
     name.addEventListener("blur", () => { validateName(); checkForm(); });
     email.addEventListener("blur", () => { validateEmail(); checkForm(); });
     pass.addEventListener("blur", () => { validatePass(); checkForm(); });
+
+    
+    document.getElementById("regForm").addEventListener("submit", function(e) {
+      e.preventDefault(); 
+      if (validateName() && validateEmail() && validatePass()) {
+        alert("Registration Successful!");
+      }
+    });
   </script>
 </body>
 </html>
